@@ -2,17 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: cloudprober
+    app: cloudmonitor-am
   name: alertmanager
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cloudprober
+      app: cloudmonitor-am
   strategy:
     type: Recreate
   template:
     metadata:
+      labels:
+        app: cloudmonitor-am
     spec:
       containers:
         - args:

@@ -1,33 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.26.0 (40646f47)
   labels:
-    io.kompose.service: prometheus
+    app: cloudmonitor-prom
   name: prometheus
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: prometheus
+      app: cloudmonitor-prom
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.26.0 (40646f47)
       labels:
-        io.kompose.service: prometheus
+        app: cloudmonitor-prom
     spec:
       containers:
         - args:
             - --web.enable-lifecycle
             - --config.file=/etc/prometheus/prometheus.yml
-          image: prom/prometheus:v2.22.1
+          image: prom/prometheus:v2.38.0
           name: prometheus
+          ports:
+            - name: http
+              containerPort: 9090
           volumeMounts:
             - mountPath: /etc/prometheus
               name: prom-config
@@ -36,4 +33,3 @@ spec:
         - name: prom-config
           configMap:
             name: prometheus-config
-status: {}

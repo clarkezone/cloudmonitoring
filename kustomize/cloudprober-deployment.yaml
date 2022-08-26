@@ -3,16 +3,18 @@ kind: Deployment
 metadata:
   name: cloudprober
   labels:
-    app: cloudmonitor
+    app: cloudmonitor-prober
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cloudprober
+      app: cloudmonitor-prober
   strategy:
     type: Recreate
   template:
     metadata:
+      labels:
+        app: cloudmonitor-prober
     spec:
       containers:
         - image: cloudprober/cloudprober:v0.11.9
@@ -29,4 +31,3 @@ spec:
         - name: prober-config
           configMap:
             name: cloudprober-config
-status: {}

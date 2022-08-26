@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - prom.your-domain.net
+    - pr.monitoring.clarkezone.dev
     secretName: prom-dev-tls
   rules:
-  - host: prom.your-domain.net
+  - host: pr.monitoring.clarkezone.dev
     http:
       paths:
       - backend:
