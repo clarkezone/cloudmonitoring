@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prober-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: https
+    cert-manager.io/cluster-issuer: cloudflare
+spec:
+  tls:
+  - hosts:
+    - prober.your-domain.net
+    secretName: prober-dev-tls
+  rules:
+  - host: prober.your-domain.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: "cloudprober-service"
+            port:
+              number: 9313
+        path: /
+        pathType: Prefix

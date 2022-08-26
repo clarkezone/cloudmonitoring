@@ -28,13 +28,12 @@ spec:
             - --config.file=/etc/prometheus/prometheus.yml
           image: prom/prometheus:v2.22.1
           name: prometheus
-          resources: {}
           volumeMounts:
             - mountPath: /etc/prometheus
-              name: prometheus-claim0
+              name: prom-config
       restartPolicy: Always
       volumes:
-        - name: prometheus-claim0
-          persistentVolumeClaim:
-            claimName: prometheus-claim0
+        - name: prom-config
+          configMap:
+            name: prometheus-config
 status: {}
