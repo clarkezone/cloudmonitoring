@@ -1,23 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- cloudprober-deployment.yaml
-- cloudprober-service.yaml
-- cloudprober-ingress.yaml
-- prometheus-deployment.yaml
-- prometheus-service.yaml
-- prometheus-ingress.yaml
 - alertmanager-deployment.yaml
 - alertmanager-service.yaml
 - alertmanager-ingress.yaml
 configMapGenerator:
-- name: cloudprober-config
-  files:
-  - configs/cloudprober.cfg
-- name: prometheus-config
-  files:
-  - configs/alert.rules
-  - configs/prometheus.yml
 - name: alertmanager-config
   files:
   - configs/alertmanager.yml
