@@ -1,0 +1,17 @@
+groups:
+- name: pingfailed
+  rules:
+  - alert: WebFailing
+    expr: increase(success{ptype="http"}[60s]) == 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: clarkezone
+  - alert: Pingfailing
+    expr: increase(success{ptype="ping"}[60m]) == 0
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: clarkezone

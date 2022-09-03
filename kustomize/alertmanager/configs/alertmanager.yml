@@ -1,0 +1,35 @@
+global:
+  resolve_timeout: 5m
+  http_config:
+    follow_redirects: true
+  smtp_from: noreply@grafana.net
+  smtp_hello: localhost
+  smtp_smarthost: smtprelay:2525
+  smtp_require_tls: false
+  pagerduty_url: https://events.pagerduty.com/v2/enqueue
+  opsgenie_api_url: https://api.opsgenie.com/
+  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/
+  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/
+route:
+  receiver: pushover
+  continue: false
+receivers:
+  - name: email
+    email_configs:
+      - send_resolved: false
+        to: james@clarkezone.net
+        from: noreply@grafana.net
+        hello: localhost
+        smarthost: smtprelay:2525
+        headers:
+          From: noreply@grafana.net
+          Subject: '{{ template "email.default.subject" . }}'
+          To: james@clarkezone.net
+        html: '{{ template "email.default.html" . }}'
+        require_tls: false
+  - name: pushover
+    pushover_configs:
+      - send_resolved: false
+        user_key: uqgy1rvtojbzckb1mqdmetypn7cxdo
+        token: a8svfp2ejmpkcuiz9s57jkmbdww31y
+templates: []
