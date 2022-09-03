@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: prometheus-service
   labels:
-    app: cloudmonitor
+    app: cloudmonitor-prom
 spec:
+  type: ClusterIP
   selector:
-    app: cloudmonitor
+    app: cloudmonitor-prom
   ports:
   - port: 9090
     targetPort: 9090
